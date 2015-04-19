@@ -22,12 +22,12 @@ class GameScene: SKScene {
         let location2 = CGPointMake(0,0)
 
         sprite2.position = location
-//        sprite2.setScale(0.5)
+        sprite2.setScale(0.5)
         self.addChild(sprite2)
 
 
         sprite.position = location
-        //        sprite.setScale(0.5)
+        sprite.setScale(0.5)
         sprite3.position = location
 //        sprite3.setScale(0.5)
         self.addChild(sprite3)
