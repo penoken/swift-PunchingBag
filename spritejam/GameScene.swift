@@ -9,29 +9,55 @@
 import SpriteKit
 
 class GameScene: SKScene {
+    let sprite = SKSpriteNode(color: NSColor.redColor(), size: CGSizeMake(50, 50))
+    let sprite2 = SKSpriteNode(color: NSColor.orangeColor(), size:CGSizeMake(100,100))
+    let sprite3 = SKSpriteNode(color: NSColor.whiteColor(),size: CGSizeMake(80,80))
+    var Sw1 = 0
+    var tempLocation = CGPointMake(0,0)
+    
     override func didMoveToView(view: SKView) {
         /* Setup your scene here */
-        let myLabel = SKLabelNode(fontNamed:"Chalkduster")
-        myLabel.text = "Hello, World!";
-        myLabel.fontSize = 65;
-        myLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame));
+
+        let location = CGPointMake(100,100)
+        let location2 = CGPointMake(0,0)
+
+        sprite2.position = location
+//        sprite2.setScale(0.5)
+        self.addChild(sprite2)
+
+
+        sprite.position = location
+        //        sprite.setScale(0.5)
+        sprite3.position = location
+//        sprite3.setScale(0.5)
+        self.addChild(sprite3)
+        self.addChild(sprite)
         
-        self.addChild(myLabel)
+
+    
     }
     
     override func mouseDown(theEvent: NSEvent) {
         /* Called when a mouse click occurs */
         
         let location = theEvent.locationInNode(self)
+        var action = SKAction()
         
-        let sprite = SKSpriteNode(imageNamed:"Spaceship")
-        sprite.position = location;
-        sprite.setScale(0.5)
+        if Sw1 == 0 {
+             action = SKAction.moveTo(CGPointMake(location.x,100), duration: 0.1)
+            tempLocation = location
+            Sw1 = 1
+        } else {
+             action = SKAction.moveTo(CGPointMake(tempLocation.x,location.y),duration: 0.1)
+            tempLocation = location
+            Sw1 = 0
+        }
         
-        let action = SKAction.rotateByAngle(CGFloat(M_PI), duration:1)
-        sprite.runAction(SKAction.repeatActionForever(action))
+        sprite.runAction(action)
+        sprite3.runAction(action)
         
-        self.addChild(sprite)
+        let action2 = SKAction.moveTo(location,duration:1.0)
+        sprite2.runAction(action2)
     }
     
     override func update(currentTime: CFTimeInterval) {
